@@ -331,7 +331,7 @@ const Dashboard = () => {
       </div>
 
       {/* Freight Cost Trend */}
-      <div className="bg-white rounded-lg shadow col-span-1 lg:col-span-3">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-2">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Freight Cost Trend</h3>
         </div>
@@ -503,21 +503,21 @@ const Dashboard = () => {
       </div>
 
       {/* Control Tower - Map View */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="p-4 border-b">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-3">
+        {/* <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Control Tower - Map View</h3>
-        </div>
+        </div> */}
         <div className="p-4">
-          <div className="flex space-x-2 mb-4">
+          {/* <div className="flex space-x-2 mb-4">
             <button className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm">All Trips</button>
             <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">Ongoing</button>
             <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">Completed</button>
             <button className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">Delayed</button>
-          </div>
+          </div> */}
           
-          <div className="w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center relative">
+          {/* <div className="w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center relative"> */}
             {/* Placeholder for map */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-15">
+            {/* <div className="absolute top-0 left-0 w-full h-full opacity-15">
               <svg width="100%" height="100%" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 0H800V600H0V0Z" fill="#E5E7EB" />
                 <path d="M100 100H700V500H100V100Z" fill="#D1D5DB" />
@@ -534,8 +534,8 @@ const Dashboard = () => {
                 <path d="M200 250L350 200L500 300L600 250" stroke="#3B82F6" strokeWidth="2" />
                 <path d="M250 350L400 400L550 350" stroke="#F59E0B" strokeWidth="2" />
               </svg>
-            </div>
-            <MapPin size={48} className="text-gray-400" />
+            </div> */}
+            {/* <MapPin size={48} className="text-gray-400" />
             <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow">
               <h4 className="font-medium text-sm mb-2">Legend</h4>
               <div className="flex items-center mb-1">
@@ -554,8 +554,8 @@ const Dashboard = () => {
                 <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
                 <span className="text-xs">Critical</span>
               </div>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
           
           <div className="mt-4">
             <h4 className="font-semibold text-gray-700 mb-2">Active Trips</h4>
@@ -657,37 +657,64 @@ const Dashboard = () => {
           <h3 className="font-semibold text-gray-700">Invoice Status</h3>
         </div>
         <div className="p-4">
-  <ResponsiveContainer width="100%" height={300}>
-    <PieChart>
-      <Pie
-        data={[
-          { name: 'Paid', value: invoiceData.paid, color: '#4CAF50' },
-          { name: 'Pending', value: invoiceData.pending, color: '#FFC107' },
-          { name: 'Approved', value: invoiceData.approved, color: '#2196F3' }
-        ]}
-        cx="50%"
-        cy="50%"
-        innerRadius={40} // Optional: for ring chart
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-        nameKey="name"
-        label
-      >
-        {[
-          { name: 'Paid', value: invoiceData.paid, color: '#4CAF50' },
-          { name: 'Pending', value: invoiceData.pending, color: '#FFC107' },
-          { name: 'Approved', value: invoiceData.approved, color: '#2196F3' }
-        ].map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={entry.color} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
-  </ResponsiveContainer>
-</div>
-
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={[
+                  { name: 'Paid', value: invoiceData.paid, color: '#4CAF50' },
+                  { name: 'Pending', value: invoiceData.pending, color: '#FFC107' },
+                  { name: 'Approved', value: invoiceData.approved, color: '#2196F3' }
+                ]}
+                cx="50%"
+                cy="50%"
+                innerRadius={40}
+                outerRadius={80}
+                dataKey="value"
+                nameKey="name"
+                label
+              >
+                {[
+                  { name: 'Paid', value: invoiceData.paid, color: '#4CAF50' },
+                  { name: 'Pending', value: invoiceData.pending, color: '#FFC107' },
+                  { name: 'Approved', value: invoiceData.approved, color: '#2196F3' }
+                ].map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+  
+      {/* State-wise Invoice Distribution */}
+      <div className="bg-white rounded-lg shadow">
+        <div className="p-4 border-b">
+          <h3 className="font-semibold text-gray-700">State-wise Invoices</h3>
+        </div>
+        <div className="p-4">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={invoiceData.stateWise}
+                cx="50%"
+                cy="50%"
+                innerRadius={40}
+                outerRadius={80}
+                dataKey="value"
+                nameKey="name"
+                label
+              >
+                {invoiceData.stateWise.map((entry, index) => (
+                  <Cell key={`state-cell-${index}`} fill={['#FF5722', '#03A9F4', '#8BC34A', '#E91E63', '#9C27B0', '#FF9800'][index % 6]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
@@ -695,7 +722,7 @@ const Dashboard = () => {
   const renderServiceTab = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Service Metrics */}
-      <div className="bg-white rounded-lg shadow col-span-2">
+      <div className="bg-white rounded-lg shadow col-span-full">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Service Level Metrics</h3>
         </div>
@@ -716,7 +743,7 @@ const Dashboard = () => {
   const renderSustainabilityTab = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Sustainability Metrics */}
-      <div className="bg-white rounded-lg shadow col-span-2">
+      <div className="bg-white rounded-lg shadow col-span-full">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Sustainability Metrics</h3>
         </div>
@@ -745,7 +772,7 @@ const Dashboard = () => {
   const renderCostTab = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Cost Metrics */}
-      <div className="bg-white rounded-lg shadow col-span-2">
+      <div className="bg-white rounded-lg shadow col-span-full">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Cost Analysis</h3>
         </div>
@@ -763,20 +790,20 @@ const Dashboard = () => {
     </div>
   );
 
-  const renderMapTab = () => (
-    <div className="bg-white rounded-lg shadow">
-      <div className="p-4 border-b">
-        <h3 className="font-semibold text-gray-700">Live Tracking Map</h3>
-      </div>
-      <div className="p-4">
-        {/* Map implementation would go here */}
-        <div className="h-[600px] bg-gray-100 rounded-lg flex items-center justify-center">
-          <MapPin size={48} className="text-gray-400" />
-          <p className="text-gray-500 ml-2">Map Integration Required</p>
-        </div>
-      </div>
-    </div>
-  );
+//   const renderMapTab = () => (
+//     <div className="bg-white rounded-lg shadow">
+//       <div className="p-4 border-b">
+//         <h3 className="font-semibold text-gray-700">Live Tracking Map</h3>
+//       </div>
+//       <div className="p-4">
+//         {/* Map implementation would go here */}
+//         <div className="h-[600px] bg-gray-100 rounded-lg flex items-center justify-center">
+//           <MapPin size={48} className="text-gray-400" />
+//           <p className="text-gray-500 ml-2">Map Integration Required</p>
+//         </div>
+//       </div>
+//     </div>
+//   );
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -881,7 +908,7 @@ const Dashboard = () => {
             >
               Sustainability
             </button>
-            <button
+            {/* <button
               onClick={() => setActiveTab('map')}
               className={`py-3 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'map'
@@ -890,7 +917,7 @@ const Dashboard = () => {
               }`}
             >
               Control Tower
-            </button>
+            </button> */}
           </nav>
         </div>
 
@@ -902,7 +929,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">Total Trips</p>
                 <p className="text-2xl font-semibold">2869</p>
               </div>
-              <div className="bg-blue-100 p-2 rounded">
+              <div className="bg-blue-100 p-3 rounded-full h-12">
                 <Truck size={24} className="text-blue-600" />
               </div>
             </div>
@@ -918,7 +945,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">On-Time Delivery</p>
                 <p className="text-2xl font-semibold">87%</p>
               </div>
-              <div className="bg-green-100 p-2 rounded">
+              <div className="bg-green-100 p-3 rounded-full h-12">
                 <CheckCircle size={24} className="text-green-600" />
               </div>
             </div>
@@ -934,7 +961,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">Delayed Shipments</p>
                 <p className="text-2xl font-semibold">211</p>
               </div>
-              <div className="bg-yellow-100 p-2 rounded">
+              <div className="bg-yellow-100 p-3 rounded-full h-12">
                 <AlertCircle size={24} className="text-yellow-600" />
               </div>
             </div>
@@ -950,7 +977,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">Avg. Transit Time</p>
                 <p className="text-2xl font-semibold">7.3h</p>
               </div>
-              <div className="bg-purple-100 p-2 rounded">
+              <div className="bg-purple-100 p-3 rounded-full h-12">
                 <Clock size={24} className="text-purple-600" />
               </div>
             </div>
@@ -966,7 +993,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">Avg. Cost/KM</p>
                 <p className="text-2xl font-semibold">₹32.5</p>
               </div>
-              <div className="bg-blue-100 p-2 rounded">
+              <div className="bg-blue-100 p-3 rounded-full h-12">
                 <DollarSign size={24} className="text-blue-600" />
               </div>
             </div>
@@ -982,7 +1009,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500">CSAT Score</p>
                 <p className="text-2xl font-semibold">4.3</p>
               </div>
-              <div className="bg-green-100 p-2 rounded">
+              <div className="bg-green-100 p-3 rounded-full h-12">
                 <Users size={24} className="text-green-600" />
               </div>
             </div>
