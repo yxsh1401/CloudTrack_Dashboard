@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import {
   LineChart,
   BarChart,
@@ -156,6 +157,55 @@ const invoiceData = {
   ]
 };
 
+const sustainabilityChartOptions = {
+    chart: {
+      height: 350,
+      type: 'line',
+    },
+    stroke: {
+      width: [3, 3, 3],
+      curve: 'smooth'
+    },
+    colors: ['#e74c3c', '#3498db', '#2ecc71'],
+    series: [
+      {
+        name: 'totalEmission',
+        type: 'line',
+        data: [7000, 9000, 5000, 3000, 15000, 12048],
+      },
+      {
+        name: 'avgEmission',
+        type: 'line',
+        data: [300.1, 310.4, 350.2, 370.6, 400.0, 388.64],
+      },
+      {
+        name: 'efficiencyIndex',
+        type: 'line',
+        data: [60, 58, 70, 75, 65, 51],
+      },
+    ],
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    },
+    yaxis: [
+      {
+        title: {
+          text: 'Emission',
+        },
+      },
+      {
+        opposite: true,
+        title: {
+          text: 'Efficiency Index',
+        },
+      },
+    ],
+    tooltip: {
+      shared: true,
+      intersect: false,
+    },
+  };
+
 const serviceMetricsData = {
   deliveryAccuracy: 97.2,
   csatScore: 4.3,
@@ -165,12 +215,16 @@ const serviceMetricsData = {
 };
 
 const sustainabilityData = {
-  co2Emissions: 0.82,
-  loadFactor: 84.5,
-  idleTimeFuel: 3.2,
-  ecoFriendlyFleet: 17.5,
-  driverCompliance: 92.3,
-  accidents: 0.3
+//   co2Emissions: 0.82,
+//   loadFactor: 84.5,
+//   idleTimeFuel: 3.2,
+//   ecoFriendlyFleet: 17.5,
+//   driverCompliance: 92.3,
+//   accidents: 0.3
+'Total co2 Emissions': '92,321 kg CO2',
+'Avg Emissions per Trip': '267.42 kg CO2',
+'Lowest Emissions': '52.34 kg CO2',
+'Highest Emissions': '553.96 kg CO2',
 };
 
 const Dashboard = () => {
@@ -675,6 +729,14 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
+          <div className="mt-6">
+          <ReactApexChart
+            options={sustainabilityChartOptions}
+            series={sustainabilityChartOptions.series}
+            type="line"
+            height={350}
+          />
+        </div>
         </div>
       </div>
     </div>
