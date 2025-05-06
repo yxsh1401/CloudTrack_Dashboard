@@ -725,7 +725,7 @@ const Dashboard = () => {
             <h1 className="text-xl font-semibold text-gray-900">Transportation Analytics Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="relative">
+            {/* <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -736,11 +736,11 @@ const Dashboard = () => {
                 placeholder="Search..."
                 className="pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-            </div>
-            <div className="bg-blue-100 p-2 rounded-full">
+            </div> */}
+            {/* <div className="bg-blue-100 p-2 rounded-full">
               <Bell size={20} className="text-blue-600" />
             </div>
-            <div className="bg-gray-200 w-8 h-8 rounded-full"></div>
+            <div className="bg-gray-200 w-8 h-8 rounded-full"></div> */}
           </div>
         </div>
       </header>
