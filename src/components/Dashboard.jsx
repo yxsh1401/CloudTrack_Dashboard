@@ -207,7 +207,7 @@ const sustainabilityChartOptions = {
   };
 
 const serviceMetricsData = {
-  deliveryAccuracy: 97.2,
+  deliveryAccuracy: 97.7,
   csatScore: 4.3,
   returnRate: 1.5,
   damageRate: 0.8,
@@ -227,6 +227,118 @@ const sustainabilityData = {
 'Highest Emissions': '553.96 kg CO2',
 };
 
+{/* Trip Performance */}
+const tripChartOptions = {
+  chart: {
+    type: "donut",
+    toolbar: { show: false },
+  },
+  labels: tripBifurcationData.map(item => item.name),
+  legend: {
+    position: "bottom",
+  },
+  colors: tripBifurcationData.map(item => item.color),
+  dataLabels: {
+    enabled: false,
+  },
+  tooltip: {
+    custom: ({ series, seriesIndex, w }) => {
+      const name = w.globals.labels[seriesIndex];
+      const value = series[seriesIndex];
+      const total = series.reduce((acc, curr) => acc + curr, 0);
+      const percent = ((value / total) * 100).toFixed(1);
+      const color = w.config.colors[seriesIndex];
+
+      return `
+        <div style="
+          padding: 8px 12px;
+          background-color: ${color};
+          color: white;
+          border-radius: 6px;
+          font-size: 13px;
+        ">
+          <strong>${name}</strong><br />
+          ${value} (${percent}%)
+        </div>
+      `;
+    },
+  },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 300,
+        },
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  ],
+};
+
+
+
+
+
+{/* Transporter Invoice */}
+const transporterBarOptions = {
+  chart: {
+    type: "bar",
+    stacked: true,
+    toolbar: { show: false },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+      barHeight: '60%',
+    },
+  },
+  xaxis: {
+    categories: invoiceData.transporterWise.map(item => item.name),
+    labels: {
+      style: {
+        fontSize: '12px',
+      },
+    },
+  },
+  colors: ["#f59e0b", "#10b981"],
+  legend: {
+    position: "bottom",
+  },
+  tooltip: {
+    shared: true,
+    intersect: false,
+    y: {
+      formatter: val => val,
+    },
+  },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  ],
+};
+
+const transporterBarSeries = [
+  {
+    name: "Pending",
+    data: invoiceData.transporterWise.map(item => item.pending),
+  },
+  {
+    name: "Paid",
+    data: invoiceData.transporterWise.map(item => item.paid),
+  },
+];
+
+const tripChartSeries = tripBifurcationData.map(item => item.value);
+
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   
@@ -243,52 +355,37 @@ const Dashboard = () => {
   );
 
   const renderDashboard = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {/* Trip Bifurcation */}
-      <div className="bg-white rounded-lg shadow col-span-1">
-        <div className="p-4 border-b">
-          <h3 className="font-semibold text-gray-700">Trip Performance</h3>
-        </div>
-        <div className="p-4">
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={tripBifurcationData}
-                cx="50%"
-                cy="50%"
-                innerRadius={40}
-                outerRadius={60}
-                fill="#8884d8"
-                dataKey="value"
-                nameKey="name"
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-              >
-                {tripBifurcationData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="mt-4">
-            <div className="flex justify-between items-center mb-2 p-2 bg-yellow-50 rounded border border-yellow-200">
-              <div className="flex items-center">
-                <AlertCircle size={16} className="text-yellow-500 mr-2" />
-                <span className="text-sm">Late Delivery Shipments</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Trip Bifurcation */}
+        <div className="bg-white rounded-lg shadow col-span-2">
+          <div className="p-4 border-b">
+            <h3 className="font-semibold text-gray-700">Trip Performance</h3>
+          </div>
+          <div className="p-4">
+          <ReactApexChart
+          options={tripChartOptions}
+          series={tripChartSeries}
+          type="donut"
+          height={250}
+        />
+            <div className="mt-4">
+              <div className="flex justify-between items-center mb-2 p-2 bg-yellow-50 rounded border border-yellow-200">
+                <div className="flex items-center">
+                  <AlertCircle size={16} className="text-yellow-500 mr-2" />
+                  <span className="text-sm">Late Delivery Shipments</span>
+                </div>
+                <span className="font-semibold">15</span>
               </div>
-              <span className="font-semibold">15</span>
-            </div>
-            <div className="flex justify-between items-center p-2 bg-orange-50 rounded border border-orange-200">
-              <div className="flex items-center">
-                <AlertCircle size={16} className="text-orange-500 mr-2" />
-                <span className="text-sm">Untracked Shipments</span>
+              <div className="flex justify-between items-center p-2 bg-orange-50 rounded border border-orange-200">
+                <div className="flex items-center">
+                  <AlertCircle size={16} className="text-orange-500 mr-2" />
+                  <span className="text-sm">Untracked Shipments</span>
+                </div>
+                <span className="font-semibold">8</span>
               </div>
-              <span className="font-semibold">8</span>
             </div>
           </div>
         </div>
-      </div>
 
       {/* Delivery Lead Time */}
       <div className="bg-white rounded-lg shadow col-span-1 lg:col-span-2">
@@ -311,22 +408,17 @@ const Dashboard = () => {
       </div>
 
       {/* Transporter Invoice Status */}
-      <div className="bg-white rounded-lg shadow col-span-1">
+      <div className="bg-white rounded-lg shadow col-span-2">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Transporter Invoice Status</h3>
         </div>
         <div className="p-4">
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={invoiceData.transporterWise} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" />
-              <YAxis dataKey="name" type="category" width={100} />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="pending" stackId="a" fill="#f59e0b" name="Pending" />
-              <Bar dataKey="paid" stackId="a" fill="#10b981" name="Paid" />
-            </BarChart>
-          </ResponsiveContainer>
+        <ReactApexChart
+      options={transporterBarOptions}
+      series={transporterBarSeries}
+      type="bar"
+      height={280}
+    />
         </div>
       </div>
 
@@ -629,7 +721,7 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
       </div>
-      
+
       {/* Driver Score */}
       <div className="bg-white rounded-lg shadow">
         <div className="p-4 border-b">
@@ -646,6 +738,78 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
       </div>
+  
+      {/* Most Common Vehicle Types */}
+      <div className="bg-white rounded-lg shadow col-span-2">
+        <div className="p-4 border-b">
+          <h3 className="font-semibold text-gray-700">Most Common Vehicle Types</h3>
+        </div>
+        <div className="p-4">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vehicle Type</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Count</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">1</td>
+                  <td className="px-6 py-4 whitespace-nowrap">CONTAINER 32 FT MXL 18 MT</td>
+                  <td className="px-6 py-4 whitespace-nowrap">12</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">2</td>
+                  <td className="px-6 py-4 whitespace-nowrap">7.5 MT</td>
+                  <td className="px-6 py-4 whitespace-nowrap">9</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">3</td>
+                  <td className="px-6 py-4 whitespace-nowrap">CONTAINER 32 FT SXL 7 MT</td>
+                  <td className="px-6 py-4 whitespace-nowrap">7</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">4</td>
+                  <td className="px-6 py-4 whitespace-nowrap">28 MT</td>
+                  <td className="px-6 py-4 whitespace-nowrap">6</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">5</td>
+                  <td className="px-6 py-4 whitespace-nowrap">21 MT</td>
+                  <td className="px-6 py-4 whitespace-nowrap">5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-4">
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold">Vehicle with Most Demand:</span> CONTAINER 32 FT MXL 18 MT (12)
+            </p>
+          </div>
+          <div className="mt-6">
+            <h4 className="font-semibold text-gray-700 mb-2">Vehicle Type & Charges Breakdown</h4>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={[
+                { name: '18 MT', charges: 3400 },
+                { name: '7.5 MT', charges: 1350 },
+                { name: '7 MT', charges: 3300 },
+                { name: '28 MT', charges: 2500 },
+                { name: '21 MT', charges: 2200 },
+              ]}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="charges" fill="#673ab7" barSize={40}/>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+  
+      
     </div>
   );
 
