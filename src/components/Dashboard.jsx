@@ -201,6 +201,8 @@ const tripChartSeries = tripBifurcationData.map((item) => item.value);
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [view, setView] = useState("monthly"); // or 'yearly'
+  const [mode, setMode] = useState("primary"); // Add mode state
+
   {
     /* Delivery Lead Time */
   }
@@ -454,7 +456,24 @@ const Dashboard = () => {
               Transportation Analytics Dashboard
             </h1>
           </div>
-          <div className="flex items-center space-x-4"></div>
+          <div className="inline-flex rounded-full border border-gray-300 bg-white p-1">
+  <button
+    onClick={() => setMode('primary')}
+    className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
+      mode === 'primary' ? 'bg-blue-600 text-white' : 'text-gray-700'
+    }`}
+  >
+    Primary
+  </button>
+  <button
+    onClick={() => setMode('secondary')}
+    className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
+      mode === 'secondary' ? 'bg-blue-600 text-white' : 'text-gray-700'
+    }`}
+  >
+    Secondary
+  </button>
+</div>
         </div>
       </header>
 
@@ -482,17 +501,18 @@ const Dashboard = () => {
             >
               Transporter / Driver
             </button>
-            <button
-              onClick={() => setActiveTab("cost")}
-              className={`py-3 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "cost"
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              Cost & Financial
-            </button>
-            
+            {mode === 'primary' && (
+              <button
+                onClick={() => setActiveTab("cost")}
+                className={`py-3 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === "cost"
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                Cost & Financial
+              </button>
+            )}
           </nav>
         </div>
 
