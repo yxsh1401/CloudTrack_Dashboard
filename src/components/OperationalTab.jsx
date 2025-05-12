@@ -16,9 +16,9 @@ const OperationalTab = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* On-Time Delivery Rate */}
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-1">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">On-Time Delivery Rate</h3>
         </div>
@@ -68,7 +68,7 @@ const OperationalTab = () => {
       </div>
 
       {/* Order Fulfillment Rate */}
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-1">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Order Fulfillment Rate</h3>
         </div>
@@ -122,7 +122,7 @@ const OperationalTab = () => {
       </div>
 
       {/* Transit Time */}
-      <div className="bg-white rounded-lg shadow">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-1">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Transit Time</h3>
         </div>
@@ -140,7 +140,7 @@ const OperationalTab = () => {
       <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-2">
         <div className="p-4">
           <h4 className="font-semibold text-gray-700 mb-2">Shipment</h4>
-          <div className="flex justify-between items-center mb-4">
+          <div className="grid grid-cols-1 gap-6 items-center mb-4">
             {/* Total Shipments */}
             <div className="flex items-center p-4 bg-blue-50 border border-blue-100 rounded-lg shadow-sm">
               <div className="bg-blue-200 text-blue-700 p-2 rounded-full mr-4">
@@ -152,6 +152,7 @@ const OperationalTab = () => {
               </div>
             </div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"> 
             {/* Damaged Shipments */}
             <div className="flex items-center p-4 bg-red-50 border border-red-100 rounded-lg shadow-sm">
               <div className="bg-red-200 text-red-700 p-2 rounded-full mr-4">
@@ -174,6 +175,7 @@ const OperationalTab = () => {
                 <p className="text-lg font-semibold text-yellow-900">849</p>
                 <LinearProgressBar value={24.1} color="yellow" />
               </div>
+            </div>
             </div>
           </div>
         </div>

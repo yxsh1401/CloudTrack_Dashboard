@@ -59,7 +59,7 @@ const barSeries = [{
 const CostAnalysis = () => {
   return (
     <>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Metric Cards */}
       {Object.entries(costMetricsData).map(([key, value]) => (
         <div key={key} className="p-4 rounded-xl bg-white shadow-md border">

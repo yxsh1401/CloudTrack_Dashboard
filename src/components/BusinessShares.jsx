@@ -21,17 +21,17 @@ const BusinessBreakupChart = () => {
         bar: {
           horizontal: true,
           borderRadius: 6,
-          barHeight: '60%',
+          barHeight: "60%",
         },
       },
       dataLabels: {
         enabled: true,
         style: {
-          colors: ['#fff'],
+          colors: ["#fff"],
         },
       },
       xaxis: {
-        categories: ["L1", "L2", "L3","L4", "Adhoc"],
+        categories: ["L1", "L2", "L3", "L4", "Adhoc"],
         labels: {
           style: {
             fontSize: "14px",
@@ -40,9 +40,9 @@ const BusinessBreakupChart = () => {
         },
       },
       fill: {
-        type: 'gradient',
+        type: "gradient",
         gradient: {
-          shade: 'light',
+          shade: "light",
           type: "horizontal",
           shadeIntensity: 0.4,
           gradientToColors: ["#007AFF"], // blue gradient
@@ -52,22 +52,20 @@ const BusinessBreakupChart = () => {
         },
       },
       colors: ["#00C6FF"], // Gradient start color
-    //   title: {
-    //     text: "Business Breakup",
-    //     align: "left",
-    //     style: {
-    //       fontSize: "20px",
-    //       fontWeight: 700,
-    //       color: "#333",
-    //     },
-    //   },
       grid: {
-        borderColor: '#e0e0e0',
+        borderColor: "#e0e0e0",
       },
     },
   };
 
-  return <Chart options={data.options} series={data.series} type="bar" height={350} />;
+  return (
+    <Chart
+      options={data.options}
+      series={data.series}
+      type="bar"
+      height={350}
+    />
+  );
 };
 
 export default BusinessBreakupChart;

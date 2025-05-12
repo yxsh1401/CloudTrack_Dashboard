@@ -41,7 +41,7 @@ const options = {
 
 export default function TransporterBarChart() {
   return (
-    <div className="w-full bg-white p-4 rounded-lg shadow-md border">
+    <div className="w-full bg-white p-4 rounded-lg shadow-md">
       <ReactApexChart options={options} series={series} type="bar" height={350} />
     </div>
   );

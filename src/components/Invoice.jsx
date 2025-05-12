@@ -100,7 +100,7 @@ const invoiceData = {
         <div>
             <TransporterBarChart/>
         </div>
-        <div className='grid grid-cols-4 col-span-full gap-6'>
+        <div className='grid lg:grid-cols-4 col-span-full gap-6'>
         <div className='col-span-2'>
             <StateGeoChart/>
         </div>

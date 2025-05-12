@@ -144,7 +144,9 @@ const invoiceData = {
   ],
 };
 
-{/* Trip Performance */}
+{
+  /* Trip Performance */
+}
 const tripChartOptions = {
   chart: {
     type: "donut",
@@ -194,7 +196,6 @@ const tripChartOptions = {
     },
   ],
 };
-
 
 const tripChartSeries = tripBifurcationData.map((item) => item.value);
 
@@ -324,7 +325,7 @@ const Dashboard = () => {
       </div>
 
       {/* Delivery Lead Time */}
-      <div className="bg-white rounded-lg shadow col-span-1 lg:col-span-2">
+      <div className="bg-white rounded-lg shadow col-span-2 lg:col-span-2">
         <div className="p-4 border-b flex justify-between items-center">
           <h3 className="font-semibold text-gray-700">Delivery Lead Time</h3>
           <div className="space-x-2">
@@ -396,11 +397,11 @@ const Dashboard = () => {
 
       {/* Transporter Invoice Status */}
       <div className="bg-white rounded-lg shadow col-span-2">
-        <CostToRevenueRatioChart/>
+        <CostToRevenueRatioChart />
       </div>
 
       <div className="col-span-full">
-        <SustainabilityMetrics/>
+        <SustainabilityMetrics />
       </div>
     </div>
   );
@@ -413,7 +414,7 @@ const Dashboard = () => {
           <h3 className="font-semibold text-gray-700">On Time Performance</h3>
         </div>
         <div className="p-4">
-          <OnTimePerformance/>
+          <OnTimePerformance />
         </div>
       </div>
 
@@ -427,22 +428,22 @@ const Dashboard = () => {
         <TransporterScorecard />
       </div>
 
-      {/* Most Common Vehicle Types */}
+      {/* Business Breakup */}
       <div className="bg-white rounded-lg shadow col-span-1">
         <div className="p-4 border-b">
           <h3 className="font-semibold text-gray-700">Business Breakup</h3>
         </div>
         <BusinessBreakupChart />
       </div>
-      <div className="col-span-full">
-        <OperationalTab/>
+      <div className="col-span-full ">
+        <OperationalTab />
       </div>
     </div>
   );
 
   const renderCostTab = () => (
     <div>
-      <CostAnalysis/>
+      <CostAnalysis />
     </div>
   );
 
@@ -457,23 +458,25 @@ const Dashboard = () => {
             </h1>
           </div>
           <div className="inline-flex rounded-full border border-gray-300 bg-white p-1">
-  <button
-    onClick={() => setMode('primary')}
-    className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
-      mode === 'primary' ? 'bg-blue-600 text-white' : 'text-gray-700'
-    }`}
-  >
-    Primary
-  </button>
-  <button
-    onClick={() => setMode('secondary')}
-    className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
-      mode === 'secondary' ? 'bg-blue-600 text-white' : 'text-gray-700'
-    }`}
-  >
-    Secondary
-  </button>
-</div>
+            <button
+              onClick={() => setMode("primary")}
+              className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
+                mode === "primary" ? "bg-blue-600 text-white" : "text-gray-700"
+              }`}
+            >
+              Primary
+            </button>
+            <button
+              onClick={() => setMode("secondary")}
+              className={`px-4 py-1 text-sm font-medium rounded-full transition-colors duration-200 ${
+                mode === "secondary"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-700"
+              }`}
+            >
+              Secondary
+            </button>
+          </div>
         </div>
       </header>
 
@@ -501,7 +504,7 @@ const Dashboard = () => {
             >
               Transporter / Driver
             </button>
-            {mode === 'primary' && (
+            {mode === "primary" && (
               <button
                 onClick={() => setActiveTab("cost")}
                 className={`py-3 px-1 border-b-2 font-medium text-sm ${
@@ -619,7 +622,6 @@ const Dashboard = () => {
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "transporter" && renderTransporterTab()}
         {activeTab === "cost" && renderCostTab()}
-        
       </main>
     </div>
   );
